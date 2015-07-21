@@ -36,18 +36,18 @@ function createFixedLengthTextParser(execlib) {
   };
   FixedLengthTextParser.prototype.createBuffer = function (data) {
     var ret = {};
-    lib.traverse(this.fieldDescriptor, this.createFileToDataItem.bind(this, data));
+    lib.traverse(this.fieldDescriptor, this.createFileToDataItem.bind(this, data, ret));
     return ret;
   };
-  FixedLengthTextParser.prototype.createFileToDataItem = function (data, fieldprocessor, fieldprocessorname) {
+  FixedLengthTextParser.prototype.createFileToDataItem = function (inputbuffer, resulthash, fieldprocessor, fieldprocessorname) {
     var range = fieldprocessor.range,
       rangelen = range[1]-range[0],
       align = fieldprocessor.align,
-      item = data.toString('utf8', fieldprocessor.range[0], fieldprocessor.range[1]).trim();
+      item = inputbuffer.toString('utf8', fieldprocessor.range[0], fieldprocessor.range[1]).trim();
     if(!align && item.length!==rangelen){
       throw new lib.Error('FIELD_WITHOUT_ALIGN_MUST_HAVE_FULL_LENGTH','Field that should have been '+rangelen+' long turned out to be '+item.length+' long');
     }
-    data[fieldprocessorname] =  item;
+    resulthash[fieldprocessorname] =  item;
   };
   FixedLengthTextParser.prototype.recordDelimiter = null;
   FixedLengthTextParser.prototype.fieldDescriptor = null;
