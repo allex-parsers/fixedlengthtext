@@ -27,8 +27,10 @@ function createFixedLengthTextParser(execlib) {
     }
   };
   FixedLengthTextParser.prototype.finalize = function(){
-    if(this.buffer){
-      return this.buffer;
+    var buff = this.buffer;
+    this.buffer = null;
+    if(buff){
+      return buff;
     }
   };
   FixedLengthTextParser.prototype.isNewRecord = function (data) {
