@@ -34,16 +34,14 @@ function createFixedLengthTextParser(execlib) {
         this.augmentBuffer(data);
       }
       if (ret) {
-        this.postProcessFileToData(ret);
-        return ret;
+        return this.postProcessFileToData(ret);
       }
     };
     FixedLengthTextParser.prototype.finalize = function(){
       var buff = this.buffer;
       this.buffer = null;
       if(buff){
-        this.postProcessFileToData(buff);
-        return buff;
+        return this.postProcessFileToData(buff);
       }
     };
     FixedLengthTextParser.prototype.isNewRecord = function (data) {
