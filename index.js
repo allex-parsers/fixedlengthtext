@@ -1,5 +1,5 @@
 function createLib(execlib) {
-  return execlib.loadDependencies('client', ['allex:base:parser'], createFixedLengthTextParser.bind(null, execlib));
+  return execlib.loadDependencies('client', ['allex_baseparser'], createFixedLengthTextParser.bind(null, execlib));
 }
 
 function createFixedLengthTextParser(execlib, BaseParser) {
